@@ -1,0 +1,54 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-09T18:58:45.411Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 2,
+    "implemented": 2,
+    "items": [
+      {
+        "id": "REQ-12",
+        "summary": "Update the Home page social link buttons to better support “social media app links” and “streaming” links by rendering platform-specific buttons (icon + platform name/label) instead of the generic “Follow” label, while still using the existing `artistProfile.socials: [Text]` URLs as the data source.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/utils/platformLinks.tsx",
+          "frontend/src/pages/HomePage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/utils/platformLinks.tsx",
+          "frontend/src/pages/HomePage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-13",
+        "summary": "Update the Music/Releases page streaming link buttons to render platform-specific buttons (icon + platform name/label) derived from each `release.streamingLinks` URL instead of the generic “Listen” label, so users can easily recognize each streaming destination.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/ReleasesPage.tsx",
+          "frontend/src/utils/platformLinks.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/ReleasesPage.tsx",
+          "frontend/src/utils/platformLinks.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "build-request.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/pages/HomePage.tsx",
+    "frontend/src/pages/ReleasesPage.tsx",
+    "frontend/src/utils/platformLinks.tsx",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

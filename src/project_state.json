@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 7,
+  "summary": "Build a music artist website using real data, where an admin can upload/manage content and public users can view it, with optional user accounts (login/signup) and user plans/subscriptions.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-add-admin-authorization-to-the-backend-so-that-only-a-configured-admin-principal-can-perform-upload-manage-operations-admin-identity-must-be-verified-via-internet-identity-login-on-the-frontend-and-enforced-by-the-backend-on-every-admin-only-method",
+      "title": "Add admin authorization to the backend so that only a configured admin Principal can perform upload/manage operations. Admin identity must be verified via Internet Identity login on the frontend and enforced by the backend on every admin-only method.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-public-read-only-frontend-for-the-music-artist-website-with-pages-sections-for-home-music-releases-videos-shows-and-gallery-all-powered-by-live-data-fetched-from-the-backend-react-query",
+      "title": "Create a public, read-only frontend for the music artist website with pages/sections for Home, Music/Releases, Videos, Shows, and Gallery, all powered by live data fetched from the backend (React Query).",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-an-admin-only-dashboard-ui-that-allows-the-admin-to-upload-manage-content-edit-artist-profile-add-edit-remove-releases-tracks-videos-shows-and-gallery-items-upload-manage-actions-must-call-backend-admin-only-methods-and-update-the-public-pages-after-changes",
+      "title": "Create an admin-only dashboard UI that allows the admin to upload/manage content: edit artist profile, add/edit/remove releases/tracks, videos, shows, and gallery items. Upload/manage actions must call backend admin-only methods and update the public pages after changes.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-cohesive-visual-theme-for-the-artist-brand-across-the-site-colors-typography-spacing-and-components-with-a-distinct-style-that-fits-a-music-artist-portfolio-avoid-blue-purple-as-the-primary-palette",
+      "title": "Apply a cohesive visual theme for the artist brand across the site (colors, typography, spacing, and components) with a distinct style that fits a music artist portfolio. Avoid blue/purple as the primary palette.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-generated-static-image-assets-logo-hero-background-and-render-them-in-the-frontend-from-static-files-under-frontend-public-assets-generated-do-not-serve-these-images-through-the-backend",
+      "title": "Add generated static image assets (logo + hero background) and render them in the frontend from static files under frontend/public/assets/generated (do not serve these images through the backend).",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-first-class-end-user-accounts-using-the-existing-internet-identity-authentication-so-that-a-visitor-can-a-sign-up-by-logging-in-for-the-first-time-and-b-log-in-out-on-subsequent-visits-with-clear-user-facing-copy-that-differentiates-create-account-first-time-vs-login-returning-while-still-using-internet-identity-under-the-hood",
+      "title": "Implement first-class end-user accounts using the existing Internet Identity authentication so that a visitor can (a) sign up by logging in for the first time and (b) log in/out on subsequent visits, with clear user-facing copy that differentiates “Create account” (first-time) vs “Login” (returning) while still using Internet Identity under the hood.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-dedicated-user-onboarding-flow-that-triggers-after-internet-identity-login-when-the-caller-does-not-yet-have-a-saved-user-profile-prompting-the-user-to-complete-required-signup-fields-at-minimum-display-name-and-saving-them-via-the-backend",
+      "title": "Create a dedicated user onboarding flow that triggers after Internet Identity login when the caller does not yet have a saved user profile, prompting the user to complete required signup fields (at minimum: display name) and saving them via the backend.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-frontend-ui-for-user-plans-show-a-plans-experience-where-an-authenticated-user-can-view-available-plans-tiers-and-select-change-their-plan-with-success-error-feedback-and-react-query-cache-invalidation-so-the-ui-updates-immediately",
+      "title": "Add frontend UI for user plans: show a “Plans” experience where an authenticated user can view available plans (tiers) and select/change their plan, with success/error feedback and React Query cache invalidation so the UI updates immediately.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-extend-the-existing-admin-dashboard-to-include-a-plans-management-section-that-lets-the-admin-create-edit-and-delete-user-plans-tiers-and-keeps-the-rest-of-the-site-responsive-by-invalidating-refetching-affected-queries-after-changes",
+      "title": "Extend the existing admin dashboard to include a “Plans” management section that lets the admin create, edit, and delete user plans (tiers) and keeps the rest of the site responsive by invalidating/refetching affected queries after changes.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-home-page-social-link-buttons-to-better-support-social-media-app-links-and-streaming-links-by-rendering-platform-specific-buttons-icon-platform-name-label-instead-of-the-generic-follow-label-while-still-using-the-existing-artistprofile-socials-text-urls-as-the-data-source",
+      "title": "Update the Home page social link buttons to better support “social media app links” and “streaming” links by rendering platform-specific buttons (icon + platform name/label) instead of the generic “Follow” label, while still using the existing `artistProfile.socials: [Text]` URLs as the data source.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-music-releases-page-streaming-link-buttons-to-render-platform-specific-buttons-icon-platform-name-label-derived-from-each-release-streaminglinks-url-instead-of-the-generic-listen-label-so-users-can-easily-recognize-each-streaming-destination",
+      "title": "Update the Music/Releases page streaming link buttons to render platform-specific buttons (icon + platform name/label) derived from each `release.streamingLinks` URL instead of the generic “Listen” label, so users can easily recognize each streaming destination.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create a music artist website powered by real data/content",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Admin upload-only capability for managing site content (restricted to admin)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Public user-facing pages to view artist content (read-only for users)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Implement backend data models and storage for a music artist website using persisted (non-mock) content, including: artist profile (name, bio, socials), releases/tracks (title, date, cover image reference, streaming links), videos (title, platform link), shows/events (date, venue, city, ticket link), and gallery items (image reference + caption). Expose query methods for public read access and update methods for admin-only create/update/delete.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Add end-user authentication (signup/login) and user plans (e.g., subscription/tiers) to the site",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Add backend data models and persisted storage for “user plans” (tiers) and per-user plan assignments, including admin-only CRUD for plans and authenticated-user methods to view available plans and set/change their own selected plan.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Add social media and streaming platform link buttons (e.g., socials + streaming links) to the artist site",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "projectName": "Music artist website with admin-only uploads and public read-only viewing",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

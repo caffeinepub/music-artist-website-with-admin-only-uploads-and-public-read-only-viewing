@@ -1,0 +1,69 @@
+{
+  "kind": "build_request",
+  "title": "Add social media and streaming link buttons",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-12",
+      "text": "Update the Home page social link buttons to better support “social media app links” and “streaming” links by rendering platform-specific buttons (icon + platform name/label) instead of the generic “Follow” label, while still using the existing `artistProfile.socials: [Text]` URLs as the data source.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "add socola mediapp link and steming staem and etc buutom"
+        ]
+      },
+      "acceptanceCriteria": [
+        "On `/`, each URL in `profile.socials` renders as a visible button with an icon and a readable platform label (e.g., “Spotify”, “Apple Music”, “YouTube”, “Instagram”, “X”, “Facebook”) when the platform can be detected from the URL.",
+        "Unknown/unrecognized URLs still render as a button with a generic external-link icon and a non-empty label (e.g., “Link”).",
+        "All social/streaming buttons open in a new tab and preserve `rel=\"noopener noreferrer\"`.",
+        "No backend changes are required; links continue to be managed via the existing Admin Profile editor social links field."
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "text": "Update the Music/Releases page streaming link buttons to render platform-specific buttons (icon + platform name/label) derived from each `release.streamingLinks` URL instead of the generic “Listen” label, so users can easily recognize each streaming destination.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "add socola mediapp link and steming staem and etc buutom"
+        ]
+      },
+      "acceptanceCriteria": [
+        "On `/music`, each URL in `release.streamingLinks` renders as a button with an icon and a platform label when detectable from the URL (e.g., “Spotify”, “Apple Music”, “YouTube Music”, “SoundCloud”, etc.).",
+        "If a streaming URL is not recognized, it still renders as a button with a generic external-link icon and a non-empty label (e.g., “Listen”).",
+        "All streaming buttons open in a new tab and preserve `rel=\"noopener noreferrer\"`.",
+        "Existing admin functionality for adding/removing streaming links remains unchanged and continues to drive what appears on the public page."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not edit any files under `frontend/src/components/ui` (read-only shadcn components).",
+    "Do not modify the Internet Identity hooks in immutable paths (`frontend/src/hooks/useInternetIdentity.ts`/`.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`).",
+    "Keep the backend single-actor architecture; do not introduce additional canisters/services."
+  ],
+  "nonGoals": [
+    "Adding new backend data fields for social/streaming links (continue using the existing URL arrays).",
+    "Adding third-party API integrations for social/streaming platforms.",
+    "Changing authentication, admin authorization, or plans features."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

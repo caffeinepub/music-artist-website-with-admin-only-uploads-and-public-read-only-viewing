@@ -1,0 +1,51 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Platform-specific social + streaming link buttons",
+  "requirements": [
+    {
+      "id": "REQ-12",
+      "summary": "Render platform-specific (icon + label) social/streaming buttons on Home page using existing artistProfile.socials URLs.",
+      "acceptanceCriteria": [
+        "On `/`, each URL in `profile.socials` renders as a visible button with an icon and a readable platform label (e.g., “Spotify”, “Apple Music”, “YouTube”, “Instagram”, “X”, “Facebook”) when the platform can be detected from the URL.",
+        "Unknown/unrecognized URLs still render as a button with a generic external-link icon and a non-empty label (e.g., “Link”).",
+        "All social/streaming buttons open in a new tab and preserve `rel=\"noopener noreferrer\"`.",
+        "No backend changes are required; links continue to be managed via the existing Admin Profile editor social links field."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/utils/platformLinks.tsx",
+          "operation": "create",
+          "description": "Add a shared URL-to-platform helper that detects known social/streaming platforms from a URL and returns a platform label plus a React icon; include a safe fallback (generic external-link icon + non-empty label)."
+        },
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "modify",
+          "description": "Replace the current generic “Follow” label rendering with platform-specific label + icon derived from each `profile.socials` URL via the shared helper; keep links opening in a new tab with `rel=\"noopener noreferrer\"`."
+        }
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "summary": "Render platform-specific (icon + label) streaming buttons on Music/Releases page using existing release.streamingLinks URLs.",
+      "acceptanceCriteria": [
+        "On `/music`, each URL in `release.streamingLinks` renders as a button with an icon and a platform label when detectable from the URL (e.g., “Spotify”, “Apple Music”, “YouTube Music”, “SoundCloud”, etc.).",
+        "If a streaming URL is not recognized, it still renders as a button with a generic external-link icon and a non-empty label (e.g., “Listen”).",
+        "All streaming buttons open in a new tab and preserve `rel=\"noopener noreferrer\"`.",
+        "Existing admin functionality for adding/removing streaming links remains unchanged and continues to drive what appears on the public page."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/ReleasesPage.tsx",
+          "operation": "modify",
+          "description": "Update streaming link button rendering to use the shared URL-to-platform helper for icon + platform label per `release.streamingLinks` URL (fallback label should be non-empty, e.g., “Listen”); preserve `target=\"_blank\"` and `rel=\"noopener noreferrer\"`."
+        },
+        {
+          "path": "frontend/src/utils/platformLinks.tsx",
+          "operation": "modify",
+          "description": "Extend/adjust platform detection to cover common streaming destinations used on `/music` (e.g., Spotify, Apple Music, YouTube Music, SoundCloud) while keeping a generic fallback behavior."
+        }
+      ]
+    }
+  ]
+}

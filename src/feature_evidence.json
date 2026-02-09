@@ -1,0 +1,47 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-update-the-home-page-social-link-buttons-to-better-support-social-media-app-links-and-streaming-links-by-rendering-platform-specific-buttons-icon-platform-name-label-instead-of-the-generic-follow-label-while-still-using-the-existing-artistprofile-socials-text-urls-as-the-data-source",
+      "featureTitle": "Update the Home page social link buttons to better support “social media app links” and “streaming” links by rendering platform-specific buttons (icon + platform name/label) instead of the generic “Follow” label, while still using the existing `artistProfile.socials: [Text]` URLs as the data source.",
+      "files": [
+        "frontend/src/pages/HomePage.tsx",
+        "frontend/src/utils/platformLinks.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-12"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-music-releases-page-streaming-link-buttons-to-render-platform-specific-buttons-icon-platform-name-label-derived-from-each-release-streaminglinks-url-instead-of-the-generic-listen-label-so-users-can-easily-recognize-each-streaming-destination",
+      "featureTitle": "Update the Music/Releases page streaming link buttons to render platform-specific buttons (icon + platform name/label) derived from each `release.streamingLinks` URL instead of the generic “Listen” label, so users can easily recognize each streaming destination.",
+      "files": [
+        "frontend/src/pages/ReleasesPage.tsx",
+        "frontend/src/utils/platformLinks.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-13"
+      ],
+      "confidence": "high"
+    }
+  ]
+}
