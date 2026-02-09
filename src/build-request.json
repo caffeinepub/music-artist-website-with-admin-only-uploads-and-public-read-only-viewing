@@ -1,69 +1,56 @@
 {
   "kind": "build_request",
-  "title": "Add social media and streaming link buttons",
+  "title": "Clarify Admin Dashboard login: Internet Identity only (no username/password)",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-12",
-      "text": "Update the Home page social link buttons to better support “social media app links” and “streaming” links by rendering platform-specific buttons (icon + platform name/label) instead of the generic “Follow” label, while still using the existing `artistProfile.socials: [Text]` URLs as the data source.",
+      "id": "REQ-14",
+      "text": "Update the Admin Dashboard unauthenticated/loading gate so it no longer shows an indefinite “Loading...” screen when the user is not logged in. Instead, show an explicit Admin login screen that tells the user to log in using Internet Identity (via the existing site Login button) to access the admin dashboard.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1"
         ],
         "quotes": [
-          "add socola mediapp link and steming staem and etc buutom"
+          "adim panle logon username or gmail or number  - \"prantiksarkarartist \"  \"muisc@prantiksarkarartist.com\" for lodin oly pass -\"prantiksarkarartist@12.    \"8910264917\"\""
         ]
       },
       "acceptanceCriteria": [
-        "On `/`, each URL in `profile.socials` renders as a visible button with an icon and a readable platform label (e.g., “Spotify”, “Apple Music”, “YouTube”, “Instagram”, “X”, “Facebook”) when the platform can be detected from the URL.",
-        "Unknown/unrecognized URLs still render as a button with a generic external-link icon and a non-empty label (e.g., “Link”).",
-        "All social/streaming buttons open in a new tab and preserve `rel=\"noopener noreferrer\"`.",
-        "No backend changes are required; links continue to be managed via the existing Admin Profile editor social links field."
+        "Visiting /admin while not authenticated shows a clear login-required state (not just a spinner).",
+        "The page includes English user-facing text instructing the user to use Internet Identity to log in.",
+        "The page provides a clear next action (e.g., a visible ‘Login’ button or instruction to use the Login button in the navigation)."
       ]
     },
     {
-      "id": "REQ-13",
-      "text": "Update the Music/Releases page streaming link buttons to render platform-specific buttons (icon + platform name/label) derived from each `release.streamingLinks` URL instead of the generic “Listen” label, so users can easily recognize each streaming destination.",
+      "id": "REQ-15",
+      "text": "Add clear English guidance on the Admin Dashboard access control model: admin access is granted only to the Internet Identity Principal configured as admin, and the app must not support (or collect) username/email/phone + password login for admin access.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1"
         ],
         "quotes": [
-          "add socola mediapp link and steming staem and etc buutom"
+          "adim panle logon username or gmail or number  - \"prantiksarkarartist \"  \"muisc@prantiksarkarartist.com\" for lodin oly pass -\"prantiksarkarartist@12.    \"8910264917\"\""
         ]
       },
       "acceptanceCriteria": [
-        "On `/music`, each URL in `release.streamingLinks` renders as a button with an icon and a platform label when detectable from the URL (e.g., “Spotify”, “Apple Music”, “YouTube Music”, “SoundCloud”, etc.).",
-        "If a streaming URL is not recognized, it still renders as a button with a generic external-link icon and a non-empty label (e.g., “Listen”).",
-        "All streaming buttons open in a new tab and preserve `rel=\"noopener noreferrer\"`.",
-        "Existing admin functionality for adding/removing streaming links remains unchanged and continues to drive what appears on the public page."
+        "The /admin experience includes English copy clarifying that admin access is based on Internet Identity Principal authorization.",
+        "No UI is added that collects or stores admin credentials such as username/email/phone/password.",
+        "The provided credential-like strings (\"prantiksarkarartist\", \"muisc@prantiksarkarartist.com\", \"8910264917\", \"prantiksarkarartist@12\") are not displayed back to end users and are not persisted anywhere in the app."
       ]
     }
   ],
   "constraints": [
-    "Do not edit any files under `frontend/src/components/ui` (read-only shadcn components).",
-    "Do not modify the Internet Identity hooks in immutable paths (`frontend/src/hooks/useInternetIdentity.ts`/`.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`).",
-    "Keep the backend single-actor architecture; do not introduce additional canisters/services."
+    "Do not implement username/email/phone + password authentication (only Internet Identity authentication is supported).",
+    "Do not store or persist any admin password/credentials in the frontend or backend.",
+    "Do not edit files under frontend/src/components/ui (read-only shadcn components)."
   ],
   "nonGoals": [
-    "Adding new backend data fields for social/streaming links (continue using the existing URL arrays).",
-    "Adding third-party API integrations for social/streaming platforms.",
-    "Changing authentication, admin authorization, or plans features."
+    "Adding a new backend authentication system (passwords, email login, SMS/OTP, or third-party auth).",
+    "Changing the existing admin authorization mechanism enforced by the backend (Principal-based admin checks)."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

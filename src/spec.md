@@ -1,11 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Make social and streaming links display as platform-specific buttons (icon + platform label) on the Home and Music/Releases pages, using the existing URL arrays as the data source.
+**Goal:** Make the Admin Dashboard access flow clear and explicit: admin access requires Internet Identity login only, and the UI must not suggest or collect username/email/phone + password credentials.
 
 **Planned changes:**
-- Update the Home (`/`) social link button rendering to detect the platform from each `artistProfile.socials` URL and show an appropriate icon + readable label (fall back to a generic external-link icon + non-empty label for unknown URLs).
-- Update the Music/Releases (`/music`) streaming link button rendering to detect the platform from each `release.streamingLinks` URL and show an appropriate icon + readable label (fall back to a generic external-link icon + non-empty label for unknown URLs).
-- Ensure all social/streaming buttons open in a new tab and include `rel="noopener noreferrer"`.
+- Replace the unauthenticated/indefinite “Loading...” gate on `/admin` with a clear login-required screen/state when the user is not authenticated.
+- Add English user-facing copy on `/admin` instructing users to log in using Internet Identity (via the existing site Login button) to access the admin dashboard.
+- Add English guidance clarifying the admin access model: admin access is granted only to the configured Internet Identity Principal, and the app does not support username/email/phone + password admin login.
+- Ensure no UI displays, collects, stores, or persists any credential-like strings (e.g., username/email/phone/password) for admin access.
 
-**User-visible outcome:** Visitors see recognizable platform buttons (e.g., Spotify, Apple Music, YouTube, Instagram) for social and streaming links on the Home and Music pages; unknown links still appear as usable generic link buttons.
+**User-visible outcome:** Visiting `/admin` while logged out shows a clear “login required” message with instructions to use Internet Identity and a clear next step to log in; the admin page explicitly clarifies that only Internet Identity Principal-based authorization is used (no password login).

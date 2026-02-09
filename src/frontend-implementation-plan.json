@@ -1,49 +1,47 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Platform-specific social + streaming link buttons",
+  "title": "Admin dashboard unauthenticated gate: show Internet Identity login-required screen",
   "requirements": [
     {
-      "id": "REQ-12",
-      "summary": "Render platform-specific (icon + label) social/streaming buttons on Home page using existing artistProfile.socials URLs.",
+      "id": "REQ-14",
+      "summary": "Replace the /admin unauthenticated/loading gate with an explicit Internet Identity login-required screen and clear next action.",
       "acceptanceCriteria": [
-        "On `/`, each URL in `profile.socials` renders as a visible button with an icon and a readable platform label (e.g., “Spotify”, “Apple Music”, “YouTube”, “Instagram”, “X”, “Facebook”) when the platform can be detected from the URL.",
-        "Unknown/unrecognized URLs still render as a button with a generic external-link icon and a non-empty label (e.g., “Link”).",
-        "All social/streaming buttons open in a new tab and preserve `rel=\"noopener noreferrer\"`.",
-        "No backend changes are required; links continue to be managed via the existing Admin Profile editor social links field."
+        "Visiting /admin while not authenticated shows a clear login-required state (not just a spinner).",
+        "The page includes English user-facing text instructing the user to use Internet Identity to log in.",
+        "The page provides a clear next action (e.g., a visible ‘Login’ button or instruction to use the Login button in the navigation)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/utils/platformLinks.tsx",
+          "path": "frontend/src/components/admin/AdminLoginRequiredScreen.tsx",
           "operation": "create",
-          "description": "Add a shared URL-to-platform helper that detects known social/streaming platforms from a URL and returns a platform label plus a React icon; include a safe fallback (generic external-link icon + non-empty label)."
+          "description": "Create a dedicated Admin login-required screen UI that explains the user must authenticate via Internet Identity and provides a clear next action by rendering the existing LoginButton. Use existing shadcn/ui primitives (e.g., Card, Button styling via existing components) without editing any files under frontend/src/components/ui. Use the authorization (Internet Identity) model for the copy and UX. Verify the component's usage instructions before implementing."
         },
         {
-          "path": "frontend/src/pages/HomePage.tsx",
+          "path": "frontend/src/pages/AdminDashboardPage.tsx",
           "operation": "modify",
-          "description": "Replace the current generic “Follow” label rendering with platform-specific label + icon derived from each `profile.socials` URL via the shared helper; keep links opening in a new tab with `rel=\"noopener noreferrer\"`."
+          "description": "Update gating logic to avoid showing an indefinite “Loading...” state when unauthenticated. Render the new AdminLoginRequiredScreen when identity is missing, show a spinner only for legitimate in-flight admin checks when authenticated, and keep the existing admin/unauthorized handling for non-admin authenticated users. Wire the new screen into this page so it is reachable at /admin. Verify the component's usage instructions before implementing."
         }
       ]
     },
     {
-      "id": "REQ-13",
-      "summary": "Render platform-specific (icon + label) streaming buttons on Music/Releases page using existing release.streamingLinks URLs.",
+      "id": "REQ-15",
+      "summary": "Add clear English copy on /admin that admin access is Principal-based via Internet Identity only, and explicitly avoid any username/email/phone/password admin login UI or persistence.",
       "acceptanceCriteria": [
-        "On `/music`, each URL in `release.streamingLinks` renders as a button with an icon and a platform label when detectable from the URL (e.g., “Spotify”, “Apple Music”, “YouTube Music”, “SoundCloud”, etc.).",
-        "If a streaming URL is not recognized, it still renders as a button with a generic external-link icon and a non-empty label (e.g., “Listen”).",
-        "All streaming buttons open in a new tab and preserve `rel=\"noopener noreferrer\"`.",
-        "Existing admin functionality for adding/removing streaming links remains unchanged and continues to drive what appears on the public page."
+        "The /admin experience includes English copy clarifying that admin access is based on Internet Identity Principal authorization.",
+        "No UI is added that collects or stores admin credentials such as username/email/phone/password.",
+        "The provided credential-like strings (\"prantiksarkarartist\", \"muisc@prantiksarkarartist.com\", \"8910264917\", \"prantiksarkarartist@12\") are not displayed back to end users and are not persisted anywhere in the app."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/ReleasesPage.tsx",
+          "path": "frontend/src/components/admin/AdminLoginRequiredScreen.tsx",
           "operation": "modify",
-          "description": "Update streaming link button rendering to use the shared URL-to-platform helper for icon + platform label per `release.streamingLinks` URL (fallback label should be non-empty, e.g., “Listen”); preserve `target=\"_blank\"` and `rel=\"noopener noreferrer\"`."
+          "description": "Add/adjust English guidance text stating: admin access is granted only to the Internet Identity Principal configured as admin; the app does not support username/email/phone + password admin login; and no admin credentials are collected or stored. Ensure none of the provided credential-like strings are ever shown in UI or stored. Verify the component's usage instructions before implementing."
         },
         {
-          "path": "frontend/src/utils/platformLinks.tsx",
+          "path": "frontend/src/pages/AdminDashboardPage.tsx",
           "operation": "modify",
-          "description": "Extend/adjust platform detection to cover common streaming destinations used on `/music` (e.g., Spotify, Apple Music, YouTube Music, SoundCloud) while keeping a generic fallback behavior."
+          "description": "Ensure the /admin flow surfaces the access-control model messaging where appropriate (unauthenticated and unauthorized states) while keeping the UI free of any credential collection fields. Confirm no credential-like strings are introduced into UI, state, logs, or persistence. Verify the component's usage instructions before implementing."
         }
       ]
     }

@@ -1,8 +1,10 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 7,
+  "projectStateVersion": 9,
   "summary": "Build a music artist website using real data, where an admin can upload/manage content and public users can view it, with optional user accounts (login/signup) and user plans/subscriptions.",
-  "architectural_notes": [],
+  "architectural_notes": [
+    "User requested admin-panel authentication via username/email/phone + password (credential-based login), which may conflict with the existing Internet Identity–based admin authorization approach."
+  ],
   "known_issues": [],
   "isFixRequest": false,
   "existing_features": [
@@ -93,6 +95,22 @@
         "REQ-13"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-admin-dashboard-unauthenticated-loading-gate-so-it-no-longer-shows-an-indefinite-loading-screen-when-the-user-is-not-logged-in-instead-show-an-explicit-admin-login-screen-that-tells-the-user-to-log-in-using-internet-identity-via-the-existing-site-login-button-to-access-the-admin-dashboard",
+      "title": "Update the Admin Dashboard unauthenticated/loading gate so it no longer shows an indefinite “Loading...” screen when the user is not logged in. Instead, show an explicit Admin login screen that tells the user to log in using Internet Identity (via the existing site Login button) to access the admin dashboard.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-clear-english-guidance-on-the-admin-dashboard-access-control-model-admin-access-is-granted-only-to-the-internet-identity-principal-configured-as-admin-and-the-app-must-not-support-or-collect-username-email-phone-password-login-for-admin-access",
+      "title": "Add clear English guidance on the Admin Dashboard access control model: admin access is granted only to the Internet Identity Principal configured as admin, and the app must not support (or collect) username/email/phone + password login for admin access.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -139,6 +157,12 @@
     {
       "id": "AR-9",
       "summary": "Add social media and streaming platform link buttons (e.g., socials + streaming links) to the artist site",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Add admin panel login using credentials (username/email/phone + password) instead of/alongside Internet Identity for admin access",
       "reqIds": [],
       "status": "pending"
     }

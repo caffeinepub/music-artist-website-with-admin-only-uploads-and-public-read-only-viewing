@@ -1,34 +1,15 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-09T18:58:45.408Z",
-  "summary": "REQ-12 appears implemented: Home page now renders one button per `profile.socials` URL with a platform-specific icon+label when detected, otherwise a generic external-link icon with a non-empty fallback label, and links open in a new tab with `rel=\"noopener noreferrer\"`. REQ-13 is partially evidenced due to truncation: Releases/Music page was updated to use the same platform detection utility, but it’s not fully visible whether the fallback label for unknown streaming links is \"Listen\" (as required) vs the utility default \"Link\".",
-  "missing_requirements": [
-    {
-      "id": "REQ-13",
-      "requirement": "On `/music`, unrecognized `release.streamingLinks` URLs must still render as a button with a generic external-link icon and a non-empty label (e.g., “Listen”).",
-      "reason": "The shared `getPlatformInfo()` utility defaults the fallback label to \"Link\". The `ReleasesPage.tsx` change is truncated before showing whether it passes `fallbackLabel: \"Listen\"` when rendering streaming links, so the required \"Listen\"-style fallback is not confirmed from the diff summary.",
-      "evidence": [
-        "frontend/src/utils/platformLinks.tsx",
-        "frontend/src/pages/ReleasesPage.tsx (truncated)"
-      ]
-    }
-  ],
-  "hallucinated_features": [
-    {
-      "description": "Added detection/labeling for additional platforms beyond those requested/examples (e.g., Tidal, Amazon Music, Deezer, LinkedIn, TikTok).",
-      "reason": "BuildRequest only requires platform-specific buttons for common social/streaming platforms and a generic fallback; adding extra platform mappings is not requested explicitly.",
-      "evidence": [
-        "frontend/src/utils/platformLinks.tsx"
-      ]
-    }
-  ],
-  "confidence": 0.63,
+  "generatedAt": "2026-02-09T19:27:48.331Z",
+  "summary": "REQ-14 and REQ-15 appear implemented: /admin now shows a dedicated unauthenticated “Admin Login Required” screen with Internet Identity guidance and a clear next action (LoginButton), avoids indefinite loading when not authenticated, and includes explicit copy that admin access is Principal-based and not username/email/phone/password-based. No evidence in the diff of collecting/storing admin credentials or displaying the provided credential-like strings.",
+  "missing_requirements": [],
+  "hallucinated_features": [],
+  "confidence": 0.9,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/src/pages/HomePage.tsx",
-    "frontend/src/pages/ReleasesPage.tsx",
-    "frontend/src/utils/platformLinks.tsx",
+    "frontend/src/components/admin/AdminLoginRequiredScreen.tsx",
+    "frontend/src/pages/AdminDashboardPage.tsx",
     "project_state.json"
   ]
 }

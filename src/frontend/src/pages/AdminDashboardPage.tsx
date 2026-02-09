@@ -1,7 +1,7 @@
 import { useInternetIdentity } from '@/hooks/useInternetIdentity';
 import { useIsCallerAdmin, useGetCallerUserProfile } from '@/hooks/useQueries';
 import { Loader2, ShieldAlert } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ProfileEditor from '@/components/admin/forms/ProfileEditor';
 import ReleasesManager from '@/components/admin/forms/ReleasesManager';
@@ -10,6 +10,7 @@ import ShowsManager from '@/components/admin/forms/ShowsManager';
 import GalleryManager from '@/components/admin/forms/GalleryManager';
 import PlansManager from '@/components/admin/forms/PlansManager';
 import ProfileSetupDialog from '@/components/auth/ProfileSetupDialog';
+import AdminLoginRequiredScreen from '@/components/admin/AdminLoginRequiredScreen';
 
 export default function AdminDashboardPage() {
   const { identity } = useInternetIdentity();
@@ -19,17 +20,24 @@ export default function AdminDashboardPage() {
   const isAuthenticated = !!identity;
   const showProfileSetup = isAuthenticated && !profileLoading && isFetched && userProfile === null;
 
-  if (!isAuthenticated || adminLoading) {
+  // Show login required screen when not authenticated
+  if (!isAuthenticated) {
+    return <AdminLoginRequiredScreen />;
+  }
+
+  // Show loading spinner only when authenticated and checking admin status
+  if (adminLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-12 h-12 animate-spin mx-auto mb-4 text-muted-foreground" />
-          <p className="text-muted-foreground">Loading...</p>
+          <p className="text-muted-foreground">Verifying admin access...</p>
         </div>
       </div>
     );
   }
 
+  // Show access denied when authenticated but not admin
   if (!isAdmin) {
     return (
       <div className="min-h-screen flex items-center justify-center p-4">
@@ -37,9 +45,12 @@ export default function AdminDashboardPage() {
           <CardHeader className="text-center">
             <ShieldAlert className="w-16 h-16 mx-auto mb-4 text-destructive" />
             <CardTitle>Access Denied</CardTitle>
-            <CardDescription>
+            <CardDescription className="text-base">
               You do not have permission to access the admin dashboard. Only authorized administrators can
               manage site content.
+            </CardDescription>
+            <CardDescription className="text-sm pt-4">
+              Admin access is granted only to the Internet Identity Principal configured as admin during initial setup.
             </CardDescription>
           </CardHeader>
         </Card>
